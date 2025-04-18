@@ -6,6 +6,8 @@
 #include "stm32f3xx_hal.h"
 
 
+#define RGBW_DRIVER_I2C_TIMEOUT_MS	100
+
 typedef enum
 {
 	RGBW_CHIP_REG_ADRESS 		= 0x00,
