@@ -2,7 +2,7 @@
 
 uint8_t rgb_chip_i2c_adress = 0x0A;
 
-I2C_HandleTypeDef* rgbw_driver_hi2c_dev;
+I2C_HandleTypeDef* rgbw_driver_hi2c_dev = NULL;
 
 
 HAL_StatusTypeDef rgbw_driver_init(I2C_HandleTypeDef* hi2c_dev){
