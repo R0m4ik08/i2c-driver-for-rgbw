@@ -30,7 +30,7 @@ extern uint8_t rgb_chip_i2c_adress;
 
 HAL_StatusTypeDef rgbw_driver_init(I2C_HandleTypeDef* hi2c_dev);
 
-HAL_StatusTypeDef rgbw_driver_set_chanal_brightness(rgbw_driver_channels_t channel, uint8_t brightness);
+HAL_StatusTypeDef rgbw_driver_set_channel_brightness(rgbw_driver_channels_t channel, uint8_t brightness);
 HAL_StatusTypeDef rgbw_driver_set_rgb_color(uint8_t red, uint8_t green, uint8_t blue);
 
 HAL_StatusTypeDef rgbw_driver_channel_enable(rgbw_driver_channels_t channel);
