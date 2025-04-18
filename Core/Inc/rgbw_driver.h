@@ -5,6 +5,18 @@
 
 #include "stm32f3xx_hal.h"
 
+
+typedef enum
+{
+	RGBW_CHIP_REG_ADRESS 		= 0x00,
+	RGBW_CHIP_REG_ENABLED		= 0x01,
+	RGBW_CHIP_REG_CHANNEL_RED	= 0x02,
+	RGBW_CHIP_REG_CHANNEL_GREEN	= 0x03,
+	RGBW_CHIP_REG_CHANNEL_BLUE	= 0x04,
+	RGBW_CHIP_REG_CHANNEL_WHITE	= 0x05,
+	RGBW_CHIP_REG_CNANNELS_MASK	= 0x06
+} rgbw_chip_registers_t;
+
 typedef enum{
 	RED		= 0b1,
 	GREEN	= 0b10,
