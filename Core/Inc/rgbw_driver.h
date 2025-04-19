@@ -17,6 +17,7 @@ typedef enum
 	RGBW_CHIP_REG_CHANNEL_BLUE	= 0x04,
 	RGBW_CHIP_REG_CHANNEL_WHITE	= 0x05,
 	RGBW_CHIP_REG_CHANNELS_MASK	= 0x06,
+	RGBW_CHIP_REG_INCORRECT		= 0xff,
 } rgbw_chip_registers_t;
 
 typedef enum{
