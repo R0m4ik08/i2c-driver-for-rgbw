@@ -38,6 +38,18 @@ HAL_StatusTypeDef get_current_channels_state(uint8_t* current_state) {
     return result;
 }
 
+uint8_t get_white_part_from_rgb(uint8_t red, uint8_t green, uint8_t blue){
+    uint8_t white_part = red;
+    if(green < white_part){
+        white_part = green;
+    }
+    if(blue < white_part){
+        white_part = blue;
+    }
+    return white_part;
+}
+
+
 HAL_StatusTypeDef rgbw_driver_init(I2C_HandleTypeDef* hi2c_dev){
 
     rgbw_chip_registers_t tmp_reg_addres;
@@ -164,5 +176,42 @@ HAL_StatusTypeDef rgbw_driver_all_channels_activity(bool enabled){
 
     return result;
 }
+
+HAL_StatusTypeDef rgbw_driver_set_rgb_color(uint8_t red, uint8_t green, uint8_t blue){
+    // Проверка на то, что была ли инициализирована микросхема управления RGBW
+    if(rgbw_driver_hi2c_dev == NULL){
+        return HAL_ERROR;
+    }
+
+    // Получаем составляющую белого цвета из переданных RGB значений
+    uint8_t white_part = get_white_part_from_rgb(red, green, blue);
+    
+    // Устанавливаем яркость белого канала и уменьшаем RGB составляющие на величину белого цвета
+    if(white_part > 0){
+        rgbw_driver_set_channel_brightness(WHITE, white_part);
+        red     -= white_part;
+        green   -= white_part;
+        blue    -= white_part;
+    }
+
+    HAL_StatusTypeDef result;
+    result = rgbw_driver_set_channel_brightness(RED, red);
+    if(result != HAL_OK){
+        return result;
+    }
+
+    result = rgbw_driver_set_channel_brightness(GREEN, green);
+    if(result != HAL_OK){
+        return result;
+    }
+
+    result = rgbw_driver_set_channel_brightness(BLUE, blue);
+    if(result != HAL_OK){
+        return result;
+    }
+
+    return result;
+}
+
 
 
