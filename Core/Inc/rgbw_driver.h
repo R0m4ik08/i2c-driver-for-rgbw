@@ -20,9 +20,9 @@ typedef enum
 } rgbw_chip_registers_t;
 
 typedef enum{
-	RED		= 0b1,
-	GREEN	= 0b10,
-	BLUE	= 0b100,
+	RED		= 0b0001,
+	GREEN	= 0b0010,
+	BLUE	= 0b0100,
 	WHITE	= 0b1000
 }rgbw_driver_channels_t;
 
