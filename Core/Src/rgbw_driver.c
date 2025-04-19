@@ -4,6 +4,9 @@ uint8_t rgb_chip_i2c_adress = 0x0A;
 
 I2C_HandleTypeDef* rgbw_driver_hi2c_dev = NULL;
 
+
+#pragma region Private functions
+
 rgbw_chip_registers_t get_addres_from_channel(rgbw_driver_channels_t channel){
 
     switch(channel){
@@ -49,6 +52,9 @@ uint8_t get_white_part_from_rgb(uint8_t red, uint8_t green, uint8_t blue){
     return white_part;
 }
 
+#pragma endregion
+
+#pragma region Public functions
 
 HAL_StatusTypeDef rgbw_driver_init(I2C_HandleTypeDef* hi2c_dev){
 
@@ -212,6 +218,8 @@ HAL_StatusTypeDef rgbw_driver_set_rgb_color(uint8_t red, uint8_t green, uint8_t 
 
     return result;
 }
+
+#pragma endregion
 
 
 
