@@ -35,7 +35,6 @@ HAL_StatusTypeDef rgbw_driver_set_rgb_color(uint8_t red, uint8_t green, uint8_t 
 
 HAL_StatusTypeDef rgbw_driver_set_channel_activity(rgbw_driver_channels_t channel, bool activity);
 
-HAL_StatusTypeDef rgbw_driver_all_channel_enable();
-HAL_StatusTypeDef rgbw_driver_all_channel_disable();
+HAL_StatusTypeDef rgbw_driver_all_channels_activity(bool enabled);
 
 #endif
