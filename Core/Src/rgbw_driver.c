@@ -139,3 +139,30 @@ HAL_StatusTypeDef rgbw_driver_set_channel_activity(rgbw_driver_channels_t channe
     return result;
 }
 
+HAL_StatusTypeDef rgbw_driver_all_channels_activity(bool enabled){
+    // Проверка на то, что была ли инициализирована микросхема управления RGBW
+    if(rgbw_driver_hi2c_dev == NULL){
+        return HAL_ERROR;
+    }
+
+    HAL_StatusTypeDef result =  HAL_ERROR;
+    rgbw_chip_registers_t tmp_reg_addres = RGBW_CHIP_REG_CHANNELS_MASK;
+    uint8_t tmp_data[2];
+
+    // Формируем данные(2 байта) для передачи по I2C
+
+    tmp_data[0] = (uint8_t) tmp_reg_addres;
+    uint8_t all_channels_mask = (RED | GREEN | BLUE | WHITE);
+    tmp_data[1] = enabled ? all_channels_mask : 0x00; 
+
+    // Отправляем данные по I2C
+
+    result = HAL_I2C_Master_Transmit(rgbw_driver_hi2c_dev, (rgb_chip_i2c_adress << 1), tmp_data, 2, RGBW_DRIVER_I2C_TIMEOUT_MS);
+    if(result != HAL_OK){
+        return result;
+    }
+
+    return result;
+}
+
+
