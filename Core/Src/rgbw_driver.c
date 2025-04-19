@@ -20,6 +20,24 @@ rgbw_chip_registers_t get_addres_from_channel(rgbw_driver_channels_t channel){
     }
 }
 
+HAL_StatusTypeDef get_current_channels_state(uint8_t* current_state) {
+    HAL_StatusTypeDef result = HAL_ERROR;
+    rgbw_chip_registers_t tmp_reg_addres = RGBW_CHIP_REG_CHANNELS_MASK;
+
+    // Запрашиваем текущее состояние каналов
+    result = HAL_I2C_Master_Transmit(rgbw_driver_hi2c_dev, (rgb_chip_i2c_adress << 1), (uint8_t*)(&tmp_reg_addres), 1, RGBW_DRIVER_I2C_TIMEOUT_MS);
+    if (result != HAL_OK) {
+        return result;
+    }
+
+    result = HAL_I2C_Master_Receive(rgbw_driver_hi2c_dev, (rgb_chip_i2c_adress << 1), current_state, 1, RGBW_DRIVER_I2C_TIMEOUT_MS);
+    if (result != HAL_OK) {
+        return result;
+    }
+
+    return result;
+}
+
 HAL_StatusTypeDef rgbw_driver_init(I2C_HandleTypeDef* hi2c_dev){
 
     rgbw_chip_registers_t tmp_reg_addres;
@@ -84,3 +102,40 @@ HAL_StatusTypeDef rgbw_driver_set_channel_brightness(rgbw_driver_channels_t chan
     
     return result;
 }
+
+HAL_StatusTypeDef rgbw_driver_set_channel_activity(rgbw_driver_channels_t channel, bool activity){
+    // Проверка на то, что была ли инициализирована микросхема управления RGBW
+    if(rgbw_driver_hi2c_dev == NULL){
+        return HAL_ERROR;
+    }
+
+    HAL_StatusTypeDef result =  HAL_ERROR;
+    rgbw_chip_registers_t tmp_reg_addres = RGBW_CHIP_REG_CHANNELS_MASK;
+    uint8_t tmp_data[2];
+
+    // Запрашиваем текущее состояние каналов
+    result = get_current_channels_state(&tmp_data[1]);
+    if(result != HAL_OK){
+        return result;
+    }
+
+    // Формируем данные(2 байта) для передачи по I2C
+
+    tmp_data[0]  = (uint8_t) tmp_reg_addres;
+
+    if (activity){
+        tmp_data[1] |= (uint8_t) channel;	
+    } else {
+        tmp_data[1] &= (uint8_t) (~channel);
+    }	
+
+    // Отправляем данные по I2C
+
+    result = HAL_I2C_Master_Transmit(rgbw_driver_hi2c_dev, (rgb_chip_i2c_adress << 1), tmp_data, 2, RGBW_DRIVER_I2C_TIMEOUT_MS);
+    if(result != HAL_OK){
+        return result;
+    }
+
+    return result;
+}
+
