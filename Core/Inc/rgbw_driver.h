@@ -2,6 +2,7 @@
 #define INC_RGBW_DRIVER_H_
 
 #include <stdint.h>
+#include <stdbool.h>
 
 #include "stm32f3xx_hal.h"
 
