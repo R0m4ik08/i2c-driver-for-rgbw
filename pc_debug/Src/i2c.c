@@ -6,6 +6,16 @@ rgbw_chip_t rgbw_chip = {
     .address_reg_to_transmit = 0x00
 };
 
+
+HAL_StatusTypeDef check_device_address(uint8_t DevAddress){
+    DevAddress >>= 1;
+    if (DevAddress != rgbw_chip.reg_values[0]){
+        LOG("Error: Device address mismatch. Expected: %02X, Received: %02X", rgbw_chip.reg_values[0], DevAddress);
+        return HAL_ERROR;
+    }
+    return HAL_OK;
+}
+
 HAL_StatusTypeDef HAL_I2C_Master_Transmit(I2C_HandleTypeDef *hi2c, uint16_t DevAddress, uint8_t *pData, uint16_t Size, uint32_t Timeout){
     return HAL_OK;
 }
