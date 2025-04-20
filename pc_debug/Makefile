@@ -9,6 +9,9 @@ BINDIR = bin
 CC = gcc.exe
 CFLAGS = -Wall -g -std=c99 -I$(INCDIR) -I$(INCDIR2) 
 
+ifdef DEBUG
+	CFLAGS += -DDEBUG
+endif
 
 # Файлы
 SOURCES	=	main.c \

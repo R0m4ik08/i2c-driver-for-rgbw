@@ -1,8 +1,23 @@
 #ifndef I2C_H
 #define I2C_H
 
+#include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
+
+#ifndef DEBUG
+    #define DEBUG 0
+#endif
+
+// Макрос для вывода отладочной информации
+#if DEBUG
+    #ifndef DEBUG_PRINT
+        #define DEBUG_PRINT printf
+    #endif
+    #define LOG(fmt, ...) DEBUG_PRINT("[DEBUG] " fmt "\n", ##__VA_ARGS__)
+#else
+    #define LOG(fmt, ...)
+#endif
 
 /** 
   * @brief  HAL Status structures definition  
