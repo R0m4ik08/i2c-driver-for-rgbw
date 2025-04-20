@@ -3,7 +3,7 @@
         {
             "label": "Build with Make",
             "type": "shell",
-            "command": "make",
+            "command": "make clean && make",
             "options": {
                 "cwd": "${workspaceFolder}/pc_debug" // Укажите путь к вложенной директории
             },
