@@ -1,5 +1,11 @@
 #include "i2c.h"
 
+rgbw_chip_t rgbw_chip = {
+    .reg_addresses  = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06},
+    .reg_values     = {0x0A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
+    .address_reg_to_transmit = 0x00
+};
+
 HAL_StatusTypeDef HAL_I2C_Master_Transmit(I2C_HandleTypeDef *hi2c, uint16_t DevAddress, uint8_t *pData, uint16_t Size, uint32_t Timeout){
     return HAL_OK;
 }

@@ -27,6 +27,13 @@ typedef struct __I2C_HandleTypeDef
    void (*MspDeInitCallback)(struct __I2C_HandleTypeDef *hi2c);/*!< I2C Msp DeInit callback */
 } I2C_HandleTypeDef;
 
+#define RGBW_CHIP_REGISTERS_COUNT 7
+typedef struct{
+   uint8_t reg_addresses[RGBW_CHIP_REGISTERS_COUNT]; 
+   uint8_t reg_values[RGBW_CHIP_REGISTERS_COUNT];
+   uint8_t address_reg_to_transmit;
+}rgbw_chip_t;
+
 /* IO operation functions  ****************************************************/
 /******* Blocking mode: Polling */
 HAL_StatusTypeDef HAL_I2C_Master_Transmit(I2C_HandleTypeDef *hi2c, uint16_t DevAddress, uint8_t *pData,
