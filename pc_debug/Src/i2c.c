@@ -44,5 +44,17 @@ HAL_StatusTypeDef HAL_I2C_Master_Transmit(I2C_HandleTypeDef *hi2c, uint16_t DevA
     return HAL_ERROR;
 }
 HAL_StatusTypeDef HAL_I2C_Master_Receive(I2C_HandleTypeDef *hi2c, uint16_t DevAddress, uint8_t *pData, uint16_t Size, uint32_t Timeout){
-    return HAL_OK;
+    HAL_StatusTypeDef result = check_device_address(DevAddress);
+    if (result != HAL_OK) {
+        return result; // Возвращаем ошибку, если адрес устройства не совпадает
+    }
+    
+    if (Size == 1){
+        pData[0] = rgbw_chip.reg_values[rgbw_chip.address_reg_to_transmit];
+        LOG("Register %02X read: %02X", rgbw_chip.address_reg_to_transmit, pData[0]);
+        return HAL_OK; // Возвращаем успех, если передан только адрес
+    }
+
+    LOG("Error: Invalid size for I2C reception. Size: %d", Size);
+    return HAL_ERROR;
 }
