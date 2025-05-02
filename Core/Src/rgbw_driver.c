@@ -92,7 +92,7 @@ i2chw_error_t read_data_from_register_by_address(const i2chw_dev_t* i2chw_dev, r
 
     //  Отправляет адрес регистра и получает его данные, которые должна отправить rgb-микросхема
 
-    result = I2CHW_WriteReadSync(i2chw_dev, (uint8_t*) &register_address, 1, &data, 1);
+    result = I2CHW_WriteReadSync(i2chw_dev, (uint8_t*) &register_address, 1, data, 1);
     if (result != I2CHW_SUCCESS)
     {
         return result;
