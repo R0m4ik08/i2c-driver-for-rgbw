@@ -187,6 +187,40 @@ i2chw_error_t rgbw_driver_set_channel_brightness(const i2chw_dev_t *p_dev, rgbw_
     return result;
 }
 
+i2chw_error_t rgbw_driver_set_channel_mode( const i2chw_dev_t *p_dev, rgbw_driver_channels_t channel, rgbw_mode_of_channel_t mode )
+{
+    //  Проверяет на ненулевой указатель устройства
+
+    if ( p_dev == NULL){
+        return I2CHW_ERR_INVALID_PARAMS;
+    }
+
+    //  Запрашивает данные из регистра режимов работы RGBW каналов
+
+    i2chw_error_t result;
+    uint8_t reg_channel_en_data;
+    result = read_data_from_register_by_address(p_dev, RGBW_CHIP_REG_CHANNEL_EN, &reg_channel_en_data);
+
+    //  Изменяет полученные данные так, чтобы установить требуемый режим у соответствующего канала
+
+    //  //  Обнуляет биты соответствующие режиму указанного канала 
+    reg_channel_en_data &= (~(0b11 << (channel << 2))) & 0xff;
+
+    //  //  Устанавливает новый режим работы для указанного канала
+    reg_channel_en_data |= (mode <<  (channel << 2)) & 0xff;
+
+    //  Отправляет новые данные в регистр режимов работы RGBW каналов
+
+    result = write_data_to_register_by_address(p_dev, RGBW_CHIP_REG_CHANNEL_EN, reg_channel_en_data);
+    if (result != I2CHW_SUCCESS)
+    {
+        return result;
+    }
+
+
+    return result;
+}
+
 #pragma endregion
 
 
