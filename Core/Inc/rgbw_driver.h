@@ -8,7 +8,7 @@
 #include "stm32f3xx_hal.h"
 
 
-#define RGBW_DRIVER_I2C_TIMEOUT_MS  100
+#define RGBW_DRIVER_I2C_TIME_FOR_RESET_MS   1
 
 typedef enum
 {
