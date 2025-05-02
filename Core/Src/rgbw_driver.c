@@ -1,10 +1,5 @@
 #include "rgbw_driver.h"
 
-uint8_t rgb_chip_i2c_adress = 0x0A;
-
-I2C_HandleTypeDef* rgbw_driver_hi2c_dev = NULL;
-
-
 #pragma region Private functions
 
 rgbw_chip_registers_t get_addres_from_channel(rgbw_driver_channels_t channel){
@@ -19,26 +14,8 @@ rgbw_chip_registers_t get_addres_from_channel(rgbw_driver_channels_t channel){
         case WHITE:
             return RGBW_CHIP_REG_CHANNEL_WHITE;
         default:
-            return RGBW_CHIP_REG_INCORRECT;
+            return RGBW_CHIP_REG_UNEXIST;
     }
-}
-
-HAL_StatusTypeDef get_current_channels_state(uint8_t* current_state) {
-    HAL_StatusTypeDef result = HAL_ERROR;
-    rgbw_chip_registers_t tmp_reg_addres = RGBW_CHIP_REG_CHANNELS_MASK;
-
-    // Запрашиваем текущее состояние каналов
-    result = HAL_I2C_Master_Transmit(rgbw_driver_hi2c_dev, (rgb_chip_i2c_adress << 1), (uint8_t*)(&tmp_reg_addres), 1, RGBW_DRIVER_I2C_TIMEOUT_MS);
-    if (result != HAL_OK) {
-        return result;
-    }
-
-    result = HAL_I2C_Master_Receive(rgbw_driver_hi2c_dev, (rgb_chip_i2c_adress << 1), current_state, 1, RGBW_DRIVER_I2C_TIMEOUT_MS);
-    if (result != HAL_OK) {
-        return result;
-    }
-
-    return result;
 }
 
 uint8_t get_white_part_from_rgb(uint8_t red, uint8_t green, uint8_t blue){
