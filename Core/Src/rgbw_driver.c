@@ -250,6 +250,95 @@ i2chw_error_t rgbw_driver_all_channels_activity(const i2chw_dev_t *p_dev, rgbw_m
     return result;
 }
 
+i2chw_error_t rgbw_driver_set_rgb_color(const i2chw_dev_t *p_dev, uint8_t red, uint8_t green, uint8_t blue)
+{
+    //  Проверяет на ненулевой указатель устройства
+
+    if ( p_dev == NULL){
+        return I2CHW_ERR_INVALID_PARAMS;
+    }
+   
+    //  Получает составляющую белого цвета из переданных RGB значений
+    uint8_t white_part = get_white_part_from_rgb(red, green, blue);
+    
+    //  Уменьшает RGB составляющие на величину белого цвета
+    if(white_part > 0)
+    {
+        red     -= white_part;
+        green   -= white_part;
+        blue    -= white_part;
+    }
+
+    //  Преобразует яркость каналов из программного диапазона в аппаратный ([0..255] -> [0..190])
+
+    white_part  = CONVERT_PROGRAM_RANGE_TO_HARDWARE(white_part);
+    red         = CONVERT_PROGRAM_RANGE_TO_HARDWARE(red);
+    green       = CONVERT_PROGRAM_RANGE_TO_HARDWARE(green);
+    blue        = CONVERT_PROGRAM_RANGE_TO_HARDWARE(blue);
+
+    //  Отправляет данные в регистры яркости RGBW каналов
+
+    i2chw_error_t result;
+    
+    result = rgbw_driver_set_channel_brightness(p_dev, WHITE, white_part);
+    if (result != I2CHW_SUCCESS)
+    {
+        return result;
+    }
+
+    result = rgbw_driver_set_channel_brightness(p_dev, RED, red);
+    if (result != I2CHW_SUCCESS)
+    {
+        return result;
+    }
+
+    result = rgbw_driver_set_channel_brightness(p_dev, GREEN, green);
+    if (result != I2CHW_SUCCESS)
+    {
+        return result;
+    }
+
+    result = rgbw_driver_set_channel_brightness(p_dev, BLUE, blue);
+    if (result != I2CHW_SUCCESS)
+    {
+        return result;
+    }
+
+    //  Отправляет данные в регистр режимов работы RGBW каналов
+
+    rgbw_mode_of_channel_t channel_mode;
+
+    channel_mode = (white_part > 0) ? ALWAYS_ON : ALWAYS_OFF;
+    result = rgbw_driver_set_channel_mode(p_dev, WHITE, channel_mode);
+    if (result != I2CHW_SUCCESS)
+    {
+        return result;
+    }
+    
+    channel_mode = (red > 0) ? ALWAYS_ON : ALWAYS_OFF;
+    result = rgbw_driver_set_channel_mode(p_dev, RED, channel_mode);
+    if (result != I2CHW_SUCCESS)
+    {
+        return result;
+    }
+    
+    channel_mode = (green > 0) ? ALWAYS_ON : ALWAYS_OFF;
+    result = rgbw_driver_set_channel_mode(p_dev, GREEN, channel_mode);
+    if (result != I2CHW_SUCCESS)
+    {
+        return result;
+    }
+    
+    channel_mode = (blue > 0) ? ALWAYS_ON : ALWAYS_OFF;
+    result = rgbw_driver_set_channel_mode(p_dev, BLUE, channel_mode);
+    if (result != I2CHW_SUCCESS)
+    {
+        return result;
+    }
+
+    return result;
+}
+
 #pragma endregion
 
 
