@@ -7,25 +7,25 @@
 #include "stm32f3xx_hal.h"
 
 
-#define RGBW_DRIVER_I2C_TIMEOUT_MS	100
+#define RGBW_DRIVER_I2C_TIMEOUT_MS  100
 
 typedef enum
 {
-	RGBW_CHIP_REG_ADRESS 		= 0x00,
-	RGBW_CHIP_REG_ENABLED		= 0x01,
-	RGBW_CHIP_REG_CHANNEL_RED	= 0x02,
-	RGBW_CHIP_REG_CHANNEL_GREEN	= 0x03,
-	RGBW_CHIP_REG_CHANNEL_BLUE	= 0x04,
-	RGBW_CHIP_REG_CHANNEL_WHITE	= 0x05,
-	RGBW_CHIP_REG_CHANNELS_MASK	= 0x06,
-	RGBW_CHIP_REG_INCORRECT		= 0xff,
+    RGBW_CHIP_REG_ADRESS        = 0x00,
+    RGBW_CHIP_REG_ENABLED       = 0x01,
+    RGBW_CHIP_REG_CHANNEL_RED   = 0x02,
+    RGBW_CHIP_REG_CHANNEL_GREEN = 0x03,
+    RGBW_CHIP_REG_CHANNEL_BLUE  = 0x04,
+    RGBW_CHIP_REG_CHANNEL_WHITE = 0x05,
+    RGBW_CHIP_REG_CHANNELS_MASK = 0x06,
+    RGBW_CHIP_REG_INCORRECT     = 0xff,
 } rgbw_chip_registers_t;
 
 typedef enum{
-	RED		= 0b0001,
-	GREEN	= 0b0010,
-	BLUE	= 0b0100,
-	WHITE	= 0b1000
+    RED     = 0b0001,
+    GREEN   = 0b0010,
+    BLUE    = 0b0100,
+    WHITE   = 0b1000
 }rgbw_driver_channels_t;
 
 extern uint8_t rgb_chip_i2c_adress;
