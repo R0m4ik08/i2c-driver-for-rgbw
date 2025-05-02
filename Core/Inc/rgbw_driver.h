@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "i2c_hw.h"
 
 #include "stm32f3xx_hal.h"
 
@@ -28,15 +29,30 @@ typedef enum{
     WHITE   = 0b1000
 }rgbw_driver_channels_t;
 
-extern uint8_t rgb_chip_i2c_adress;
+i2chw_error_t rgbw_driver_init(
+    const   i2chw_dev_t*        i2chw_dev,
+    const   i2chw_cfg_t*        i2chw_cfg
+);
 
-HAL_StatusTypeDef rgbw_driver_init(I2C_HandleTypeDef* hi2c_dev);
+i2chw_error_t rgbw_driver_set_channel_brightness(
+    const   i2chw_dev_t *p_dev,
+            rgbw_driver_channels_t channel,
+            uint8_t brightness
+);
 
-HAL_StatusTypeDef rgbw_driver_set_channel_brightness(rgbw_driver_channels_t channel, uint8_t brightness);
-HAL_StatusTypeDef rgbw_driver_set_rgb_color(uint8_t red, uint8_t green, uint8_t blue);
+i2chw_error_t rgbw_driver_set_rgb_color(
+    const   i2chw_dev_t*    p_dev,
+            uint8_t         red,
+            uint8_t         green,
+            uint8_t         blue
+);
 
-HAL_StatusTypeDef rgbw_driver_set_channel_activity(rgbw_driver_channels_t channel, bool activity);
+i2chw_error_t rgbw_driver_set_channel_mode(
+    const   i2chw_dev_t*            p_dev,
+            rgbw_driver_channels_t  channel,
+            rgbw_mode_of_channel_t  mode
+);
 
-HAL_StatusTypeDef rgbw_driver_all_channels_activity(bool enabled);
+i2chw_error_t rgbw_driver_all_channels_activity(const i2chw_dev_t *p_dev, rgbw_mode_of_channel_t mode);
 
 #endif
