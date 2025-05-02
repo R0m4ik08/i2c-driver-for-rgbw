@@ -28,6 +28,20 @@ typedef enum{
     WHITE
 }rgbw_driver_channels_t;
 
+typedef enum{
+    ALWAYS_OFF  = 0b00,
+    ALWAYS_ON   = 0b01
+}rgbw_mode_of_channel_t;
+
+typedef enum{
+    DO_NOTHING              = 0b100,
+    RESET_REGISTERS_ONLY    = 0b101,
+    RESET_COMPLATE          = 0b111,
+    MODE_SHUTDOWN_ON_SLC_OR_SDA_LOW = 0b00000,
+    MODE_ALWAYS_ON          = 0b11000
+}rgbw_control_values_t;
+
+
 i2chw_error_t rgbw_driver_init(
     const   i2chw_dev_t*        i2chw_dev,
     const   i2chw_cfg_t*        i2chw_cfg
