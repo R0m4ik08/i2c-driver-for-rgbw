@@ -12,21 +12,20 @@
 
 typedef enum
 {
-    RGBW_CHIP_REG_ADRESS        = 0x00,
-    RGBW_CHIP_REG_ENABLED       = 0x01,
-    RGBW_CHIP_REG_CHANNEL_RED   = 0x02,
-    RGBW_CHIP_REG_CHANNEL_GREEN = 0x03,
-    RGBW_CHIP_REG_CHANNEL_BLUE  = 0x04,
-    RGBW_CHIP_REG_CHANNEL_WHITE = 0x05,
-    RGBW_CHIP_REG_CHANNELS_MASK = 0x06,
-    RGBW_CHIP_REG_INCORRECT     = 0xff,
+    RGBW_CHIP_REG_RESET_CONTROL = 0x00,
+    RGBW_CHIP_REG_CHANNEL_EN    = 0x04,
+    RGBW_CHIP_REG_CHANNEL_RED   = 0x06,
+    RGBW_CHIP_REG_CHANNEL_GREEN = 0x07,
+    RGBW_CHIP_REG_CHANNEL_BLUE  = 0x08,
+    RGBW_CHIP_REG_CHANNEL_WHITE = 0x09,
+    RGBW_CHIP_REG_UNEXIST       = 0xff
 } rgbw_chip_registers_t;
 
 typedef enum{
-    RED     = 0b0001,
-    GREEN   = 0b0010,
-    BLUE    = 0b0100,
-    WHITE   = 0b1000
+    RED = 0,
+    GREEN,
+    BLUE,
+    WHITE
 }rgbw_driver_channels_t;
 
 i2chw_error_t rgbw_driver_init(
