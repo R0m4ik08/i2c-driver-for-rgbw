@@ -221,6 +221,35 @@ i2chw_error_t rgbw_driver_set_channel_mode( const i2chw_dev_t *p_dev, rgbw_drive
     return result;
 }
 
+i2chw_error_t rgbw_driver_all_channels_activity(const i2chw_dev_t *p_dev, rgbw_mode_of_channel_t mode)
+{
+    //  Проверяет на ненулевой указатель устройства
+
+    if ( p_dev == NULL){
+        return I2CHW_ERR_INVALID_PARAMS;
+    }
+    
+    //Формирует данные для регистра RGBW_CHIP_REG_CHANNEL_EN, соответствующие установки всем каналам режима mode
+    
+    uint8_t data = 0;
+    for (int i = 0; i < 4; i++)
+    {
+        data <<= 2;
+        data  |= (uint8_t)mode & 0b11;
+    }
+
+    //  Отправляет подготовленные данные в регистр RGBW_CHIP_REG_CHANNEL_EN
+    
+    i2chw_error_t result;
+    result = write_data_to_register_by_address(p_dev, RGBW_CHIP_REG_CHANNEL_EN, data);
+    if (result != I2CHW_SUCCESS)
+    {
+        return result;
+    }
+
+    return result;
+}
+
 #pragma endregion
 
 
