@@ -155,6 +155,38 @@ i2chw_error_t rgbw_driver_init(const i2chw_dev_t* i2chw_dev, const i2chw_cfg_t* 
     return result;
 }
 
+i2chw_error_t rgbw_driver_set_channel_brightness(const i2chw_dev_t *p_dev, rgbw_driver_channels_t channel, uint8_t brightness)
+{
+    //  Проверяет на ненулевой указатель устройства
+
+    if ( p_dev == NULL){
+        return I2CHW_ERR_INVALID_PARAMS;
+    }
+    
+    //  Преобразует яркость из программного диапазона в аппаратный ([0..255] -> [0..190])
+    
+    uint8_t hardware_brightness = CONVERT_PROGRAM_RANGE_TO_HARDWARE(brightness);
+
+    //  Определяет адрес регистра, в который будет записана яркость канала
+
+    rgbw_chip_registers_t tmp_reg_addres;
+    tmp_reg_addres = get_addres_from_channel(channel);
+    if(tmp_reg_addres == RGBW_CHIP_REG_UNEXIST){
+        return I2CHW_ERR_INVALID_PARAMS;
+    }
+
+    //  Отправляет данные в регистр соответствующего канала для установки переданной яркости
+
+    i2chw_error_t result;
+    result = write_data_to_register_by_address(p_dev, tmp_reg_addres, hardware_brightness);
+    if (result != I2CHW_SUCCESS)
+    {
+        return result;
+    }
+
+    return result;
+}
+
 #pragma endregion
 
 
