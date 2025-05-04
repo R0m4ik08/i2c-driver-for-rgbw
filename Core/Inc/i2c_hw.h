@@ -14,6 +14,25 @@ extern "C"
 #include <stdint.h>
 #include <stdbool.h>
 
+#ifdef PC_DEBUG
+#include <stdio.h>
+
+#ifndef DEBUG
+    #define DEBUG 1
+#endif
+
+// Макрос для вывода отладочной информации
+#if DEBUG
+    #ifndef DEBUG_PRINT
+        #define DEBUG_PRINT printf
+    #endif
+    #define LOG(fmt, ...) DEBUG_PRINT("[DEBUG] " fmt "\n", ##__VA_ARGS__)
+#else
+    #define LOG(fmt, ...)
+#endif
+
+#endif // PC_DEBUG
+
 /******************************************************************************
  * PUBLIC TYPES
  ******************************************************************************/
