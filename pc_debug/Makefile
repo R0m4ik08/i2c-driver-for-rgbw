@@ -27,11 +27,17 @@ TARGET = $(BINDIR)/main.exe
 # Правила
 all: $(TARGET)
 
+echo_vars:
+	@echo "SOURCES: $(SRC_PATHS)"
+	@echo "OBJ_PATHS: $(OBJ_PATHS)"
+
 $(TARGET): $(OBJECTS)
+	@echo "GET_EXE: $@"
 	@mkdir -p $(BINDIR)
 	$(CC) $(OBJECTS) -o $@
 
 $(OBJDIR)/main.o: main.c
+	@echo "GET_OBJs: $@"
 	@mkdir -p $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
@@ -44,6 +50,7 @@ $(OBJDIR)/rgbw_driver.o: $(SRCDIR)/rgbw_driver.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
+	@echo "Cleaninig: $@"
 	rm -rf $(OBJDIR) $(BINDIR)
 
 # Дополнительно
