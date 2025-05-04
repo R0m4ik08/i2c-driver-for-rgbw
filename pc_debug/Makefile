@@ -1,13 +1,12 @@
 # Директории
 SRCDIR = ../Core/Src
 INCDIR = ../Core/Inc
-INCDIR2 = Inc
 OBJDIR = obj
 BINDIR = bin
 
 # Компилятор и флаги
 CC = gcc.exe
-CFLAGS = -Wall -g -std=c99 -I$(INCDIR) -I$(INCDIR2) 
+CFLAGS = -Wall -g -std=c99 -DPC_DEBUG -I$(INCDIR)
 
 ifdef DEBUG
 	CFLAGS += -DDEBUG
