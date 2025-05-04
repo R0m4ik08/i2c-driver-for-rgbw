@@ -107,7 +107,7 @@ int main(void)
     i2chw_dev_t i2chw_dev = {
         .addr_width = I2CHW_ADDR_WIDTH_8BIT,
         .bus_num    = I2CHW_BUS_I2C0,
-        .dev_addr   = 0x1010
+        .dev_addr   = 0x55
     }; 
     i2chw_cfg_t i2chw_cfg = {
         .bus_freq  = I2CHW_1000_KHZ,
