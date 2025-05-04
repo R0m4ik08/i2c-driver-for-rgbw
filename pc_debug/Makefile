@@ -13,16 +13,16 @@ ifdef DEBUG
 	CFLAGS += -DDEBUG
 endif
 
-# Файлы
+# --- Исходные файлы (без путей) ---
 SOURCES	=	main.c \
-			Src/i2c.c \
-			$(SRCDIR)/rgbw_driver.c
+			rgbw_driver.c \
+			i2c_hw.c \
 
-OBJECTS =	$(OBJDIR)/main.o	\
-			$(OBJDIR)/i2c.o		\
-			$(OBJDIR)/rgbw_driver.o
+# --- Относительные пути к исходникам и объектам ---
+SRC_PATHS = $(addprefix $(SRCDIR)/, $(SOURCES))
+OBJ_PATHS = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC_PATHS))
 
-TARGET =	$(BINDIR)/main.exe
+TARGET = $(BINDIR)/main.exe
 
 # Правила
 all: $(TARGET)
