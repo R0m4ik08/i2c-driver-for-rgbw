@@ -5,8 +5,6 @@
 #include <stdbool.h>
 #include "i2c_hw.h"
 
-#include "stm32f3xx_hal.h"
-
 
 #define RGBW_DRIVER_I2C_TIME_FOR_RESET_MS   1
 
