@@ -69,128 +69,128 @@ static void MX_USART2_UART_Init(void);
 int main(void)
 {
 
-  /* USER CODE BEGIN 1 */
+    /* USER CODE BEGIN 1 */
 
-  /* USER CODE END 1 */
+    /* USER CODE END 1 */
 
-  /* MCU Configuration--------------------------------------------------------*/
+    /* MCU Configuration--------------------------------------------------------*/
 
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+    /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+    HAL_Init();
 
-  /* USER CODE BEGIN Init */
+    /* USER CODE BEGIN Init */
 
-  /* USER CODE END Init */
+    /* USER CODE END Init */
 
-  /* Configure the system clock */
-  SystemClock_Config();
+    /* Configure the system clock */
+    SystemClock_Config();
 
-  /* USER CODE BEGIN SysInit */
+    /* USER CODE BEGIN SysInit */
 
-  /* USER CODE END SysInit */
+    /* USER CODE END SysInit */
 
-  /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  MX_I2C1_Init();
-  MX_USART2_UART_Init();
-  /* USER CODE BEGIN 2 */
+    /* Initialize all configured peripherals */
+    MX_GPIO_Init();
+    MX_I2C1_Init();
+    MX_USART2_UART_Init();
+    /* USER CODE BEGIN 2 */
 
-  i2chw_dev_t i2chw_dev = {
+    i2chw_dev_t i2chw_dev = {
         .addr_width = I2CHW_ADDR_WIDTH_8BIT,
         .bus_num    = I2CHW_BUS_I2C0,
         .dev_addr   = 0x1010
-  }; 
-  i2chw_cfg_t i2chw_cfg = {
-         .bus_freq  = I2CHW_1000_KHZ,
-         .dir_mode  = I2CHW_SLAVE_MODE
-  };
+    }; 
+    i2chw_cfg_t i2chw_cfg = {
+        .bus_freq  = I2CHW_1000_KHZ,
+        .dir_mode  = I2CHW_SLAVE_MODE
+    };
 
-  if (rgbw_driver_init(&i2chw_dev, &i2chw_cfg) != I2CHW_SUCCESS) {
-      printf("Failed to initialize RGBW driver.\n");
-      return -1;
-  }
-  printf("RGBW driver initialized successfully.\n");
+    if (rgbw_driver_init(&i2chw_dev, &i2chw_cfg) != I2CHW_SUCCESS) {
+        printf("Failed to initialize RGBW driver.\n");
+        return -1;
+    }
+    printf("RGBW driver initialized successfully.\n");
 
-  // Установка яркости каналов
-  if (rgbw_driver_set_channel_brightness(&i2chw_dev, RED, 128) == I2CHW_SUCCESS) {
-      printf("Red channel brightness set to 128.\n");
-  } else {
-      printf("Failed to set red channel brightness.\n");
-  }
+    // Установка яркости каналов
+    if (rgbw_driver_set_channel_brightness(&i2chw_dev, RED, 128) == I2CHW_SUCCESS) {
+        printf("Red channel brightness set to 128.\n");
+    } else {
+        printf("Failed to set red channel brightness.\n");
+    }
 
-  if (rgbw_driver_set_channel_brightness(&i2chw_dev, GREEN, 64) == I2CHW_SUCCESS) {
-      printf("Green channel brightness set to 64.\n");
-  } else {
-      printf("Failed to set green channel brightness.\n");
-  }
+    if (rgbw_driver_set_channel_brightness(&i2chw_dev, GREEN, 64) == I2CHW_SUCCESS) {
+        printf("Green channel brightness set to 64.\n");
+    } else {
+        printf("Failed to set green channel brightness.\n");
+    }
 
-  if (rgbw_driver_set_channel_brightness(&i2chw_dev, BLUE, 255) == I2CHW_SUCCESS) {
-      printf("Blue channel brightness set to 255.\n");
-  } else {
-      printf("Failed to set blue channel brightness.\n");
-  }
+    if (rgbw_driver_set_channel_brightness(&i2chw_dev, BLUE, 255) == I2CHW_SUCCESS) {
+        printf("Blue channel brightness set to 255.\n");
+    } else {
+        printf("Failed to set blue channel brightness.\n");
+    }
 
-  if (rgbw_driver_set_channel_brightness(&i2chw_dev, WHITE, 0x20) == I2CHW_SUCCESS) {
-      printf("White channel brightness set to 0x20.\n");
-  } else {
-      printf("Failed to set white channel brightness.\n");
-  }
+    if (rgbw_driver_set_channel_brightness(&i2chw_dev, WHITE, 0x20) == I2CHW_SUCCESS) {
+        printf("White channel brightness set to 0x20.\n");
+    } else {
+        printf("Failed to set white channel brightness.\n");
+    }
 
-  // Установка активности каналов
-  if (rgbw_driver_set_channel_mode(&i2chw_dev, RED, ALWAYS_ON) == I2CHW_SUCCESS) {
-      printf("Red channel activated.\n");
-  } else {
-      printf("Failed to activate red channel.\n");
-  }
+    // Установка активности каналов
+    if (rgbw_driver_set_channel_mode(&i2chw_dev, RED, ALWAYS_ON) == I2CHW_SUCCESS) {
+        printf("Red channel activated.\n");
+    } else {
+        printf("Failed to activate red channel.\n");
+    }
 
-  if (rgbw_driver_set_channel_mode(&i2chw_dev, RED, ALWAYS_OFF) == I2CHW_SUCCESS) {
-      printf("Red channel deactivated.\n");
-  } else {
-      printf("Failed to deactivate red channel.\n");
-  }
+    if (rgbw_driver_set_channel_mode(&i2chw_dev, RED, ALWAYS_OFF) == I2CHW_SUCCESS) {
+        printf("Red channel deactivated.\n");
+    } else {
+        printf("Failed to deactivate red channel.\n");
+    }
 
-  if (rgbw_driver_set_channel_mode(&i2chw_dev, GREEN, ALWAYS_ON) == I2CHW_SUCCESS) {
-      printf("Green channel activated.\n");
-  } else {
-      printf("Failed to activated green channel.\n");
-  }
+    if (rgbw_driver_set_channel_mode(&i2chw_dev, GREEN, ALWAYS_ON) == I2CHW_SUCCESS) {
+        printf("Green channel activated.\n");
+    } else {
+        printf("Failed to activated green channel.\n");
+    }
 
-  if (rgbw_driver_set_channel_mode(&i2chw_dev, BLUE, ALWAYS_ON) == I2CHW_SUCCESS) {
-      printf("Blue channel activated.\n");
-  } else {
-      printf("Failed to activated blue channel.\n");
-  }
+    if (rgbw_driver_set_channel_mode(&i2chw_dev, BLUE, ALWAYS_ON) == I2CHW_SUCCESS) {
+        printf("Blue channel activated.\n");
+    } else {
+        printf("Failed to activated blue channel.\n");
+    }
 
-  if (rgbw_driver_set_channel_mode(&i2chw_dev, WHITE, ALWAYS_ON) == I2CHW_SUCCESS) {
-      printf("White channel activated.\n");
-  } else {
-      printf("Failed to activated white channel.\n");
-  }
+    if (rgbw_driver_set_channel_mode(&i2chw_dev, WHITE, ALWAYS_ON) == I2CHW_SUCCESS) {
+        printf("White channel activated.\n");
+    } else {
+        printf("Failed to activated white channel.\n");
+    }
 
-  // Выключение всех каналов
-  if (rgbw_driver_all_channels_activity(&i2chw_dev, ALWAYS_OFF) == I2CHW_SUCCESS) {
-      printf("All channels deactivated.\n");
-  } else {
-      printf("Failed to deactivate all channels.\n");
-  }
+    // Выключение всех каналов
+    if (rgbw_driver_all_channels_activity(&i2chw_dev, ALWAYS_OFF) == I2CHW_SUCCESS) {
+        printf("All channels deactivated.\n");
+    } else {
+        printf("Failed to deactivate all channels.\n");
+    }
 
-  if(rgbw_driver_set_rgb_color(&i2chw_dev, 0xff, 0x80, 0x40) == I2CHW_SUCCESS){
-      printf("RGB color set successfully.\n");
-  }else{
-      printf("Failed to set RGB color.\n");
-  }
+    if(rgbw_driver_set_rgb_color(&i2chw_dev, 0xff, 0x80, 0x40) == I2CHW_SUCCESS){
+        printf("RGB color set successfully.\n");
+    }else{
+        printf("Failed to set RGB color.\n");
+    }
 
-  /* USER CODE END 2 */
+    /* USER CODE END 2 */
 
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-  while (1)
-  {
+    /* Infinite loop */
+    /* USER CODE BEGIN WHILE */
+    while (1)
+    {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-  }
-  /* USER CODE END 3 */
+    }
+    /* USER CODE END 3 */
 }
 
 /**
