@@ -114,79 +114,91 @@ int main(void)
         .dir_mode  = I2CHW_SLAVE_MODE
     };
 
+    printf("RGBW driver initialized start:\n");
     if (rgbw_driver_init(&i2chw_dev, &i2chw_cfg) != I2CHW_SUCCESS) {
         printf("Failed to initialize RGBW driver.\n");
         return -1;
     }
-    printf("RGBW driver initialized successfully.\n");
+    printf("RGBW driver initialized successfully.\n\n");
 
     // Установка яркости каналов
+    printf("Start: Red channel brightness set to 128.\n");
     if (rgbw_driver_set_channel_brightness(&i2chw_dev, RED, 128) == I2CHW_SUCCESS) {
-        printf("Red channel brightness set to 128.\n");
+        printf("End: Red channel brightness set to 128.\n\n");
     } else {
-        printf("Failed to set red channel brightness.\n");
+        printf("Failed to set red channel brightness.\n\n");
     }
 
+    printf("Start: Green channel brightness set to 64.\n");
     if (rgbw_driver_set_channel_brightness(&i2chw_dev, GREEN, 64) == I2CHW_SUCCESS) {
-        printf("Green channel brightness set to 64.\n");
+        printf("End: Green channel brightness set to 64.\n\n");
     } else {
-        printf("Failed to set green channel brightness.\n");
+        printf("Failed to set green channel brightness.\n\n");
     }
 
+    printf("Start: Blue channel brightness set to 255.\n");
     if (rgbw_driver_set_channel_brightness(&i2chw_dev, BLUE, 255) == I2CHW_SUCCESS) {
-        printf("Blue channel brightness set to 255.\n");
+        printf("End: Blue channel brightness set to 255.\n\n");
     } else {
-        printf("Failed to set blue channel brightness.\n");
+        printf("Failed to set blue channel brightness.\n\n");
     }
 
+    printf("Start: White channel brightness set to 0x20.\n");
     if (rgbw_driver_set_channel_brightness(&i2chw_dev, WHITE, 0x20) == I2CHW_SUCCESS) {
-        printf("White channel brightness set to 0x20.\n");
+        printf("End: White channel brightness set to 0x20.\n\n");
     } else {
-        printf("Failed to set white channel brightness.\n");
+        printf("Failed to set white channel brightness.\n\n");
     }
 
     // Установка активности каналов
+    printf("Start: Red channel activated.\n");
     if (rgbw_driver_set_channel_mode(&i2chw_dev, RED, ALWAYS_ON) == I2CHW_SUCCESS) {
-        printf("Red channel activated.\n");
+        printf("End: Red channel activated.\n\n");
     } else {
-        printf("Failed to activate red channel.\n");
+        printf("Failed to activate red channel.\n\n");
     }
 
+    printf("Start: Red channel deactivated.\n");
     if (rgbw_driver_set_channel_mode(&i2chw_dev, RED, ALWAYS_OFF) == I2CHW_SUCCESS) {
-        printf("Red channel deactivated.\n");
+        printf("End: Red channel deactivated.\n\n");
     } else {
-        printf("Failed to deactivate red channel.\n");
+        printf("Failed to deactivate red channel.\n\n");
     }
 
+    printf("Start: Green channel activated.\n");
     if (rgbw_driver_set_channel_mode(&i2chw_dev, GREEN, ALWAYS_ON) == I2CHW_SUCCESS) {
-        printf("Green channel activated.\n");
+        printf("End: Green channel activated.\n\n");
     } else {
-        printf("Failed to activated green channel.\n");
+        printf("Failed to activated green channel.\n\n");
     }
 
+    printf("Start: Blue channel activated.\n");
     if (rgbw_driver_set_channel_mode(&i2chw_dev, BLUE, ALWAYS_ON) == I2CHW_SUCCESS) {
-        printf("Blue channel activated.\n");
+        printf("End: Blue channel activated.\n\n");
     } else {
-        printf("Failed to activated blue channel.\n");
+        printf("Failed to activated blue channel.\n\n");
     }
 
+    printf("Start: White channel activated.\n");
     if (rgbw_driver_set_channel_mode(&i2chw_dev, WHITE, ALWAYS_ON) == I2CHW_SUCCESS) {
-        printf("White channel activated.\n");
+        printf("End: White channel activated.\n\n");
     } else {
-        printf("Failed to activated white channel.\n");
+        printf("Failed to activated white channel.\n\n");
     }
 
     // Выключение всех каналов
+    printf("Start: All channels deactivated.\n");
     if (rgbw_driver_all_channels_activity(&i2chw_dev, ALWAYS_OFF) == I2CHW_SUCCESS) {
-        printf("All channels deactivated.\n");
+        printf("End: All channels deactivated.\n\n");
     } else {
-        printf("Failed to deactivate all channels.\n");
+        printf("Failed to deactivate all channels.\n\n");
     }
 
+    printf("Start: RGB color set successfully.\n");
     if(rgbw_driver_set_rgb_color(&i2chw_dev, 0xff, 0x80, 0x40) == I2CHW_SUCCESS){
-        printf("RGB color set successfully.\n");
+        printf("End: RGB color set successfully.\n\n");
     }else{
-        printf("Failed to set RGB color.\n");
+        printf("Failed to set RGB color.\n\n");
     }
 
     /* USER CODE END 2 */
