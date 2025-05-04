@@ -206,10 +206,10 @@ i2chw_error_t rgbw_driver_set_channel_mode( const i2chw_dev_t *p_dev, rgbw_drive
     //  Изменяет полученные данные так, чтобы установить требуемый режим у соответствующего канала
 
     //  //  Обнуляет биты соответствующие режиму указанного канала 
-    reg_channel_en_data &= (~(0b11 << (channel << 2))) & 0xff;
+    reg_channel_en_data &= (~(0b11 << (channel << 1))) & 0xff;
 
     //  //  Устанавливает новый режим работы для указанного канала
-    reg_channel_en_data |= (mode <<  (channel << 2)) & 0xff;
+    reg_channel_en_data |= (mode <<  (channel << 1)) & 0xff;
 
     //  Отправляет новые данные в регистр режимов работы RGBW каналов
 
