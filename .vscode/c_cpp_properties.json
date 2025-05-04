@@ -1,0 +1,52 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "d:/Repositories/i2c-driver-for-rgbw/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "windowsSdkVersion": "10.0.22621.0",
+            "compilerPath": "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.43.34808/bin/Hostx64/x64/cl.exe",
+            "intelliSenseMode": "windows-msvc-x64",
+            "cStandard": "c99",
+            "compilerPathInCppPropertiesJson": "C:/Program1/Other/Compilers/gcc/bin/gcc.exe",
+            "cppStandard": "c++23",
+            "mergeConfigurations": false,
+            "recursiveIncludes": {},
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true
+            }
+        },
+        {
+            "name": "pc_debug",
+            "includePath": [
+                "d:/Repositories/i2c-driver-for-rgbw/**"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "windowsSdkVersion": "10.0.22621.0",
+            "compilerPath": "C:/Program1/Other/Compilers/gcc/bin/gcc.exe",
+            "intelliSenseMode": "gcc-x64",
+            "compilerPathInCppPropertiesJson": "C:/Program1/Other/Compilers/gcc/bin/gcc.exe",
+            "cStandard": "c99",
+            "cppStandard": "c++23",
+            "mergeConfigurations": false,
+            "recursiveIncludes": {},
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "compilerArgs": [
+                "-DPC_DEBUG"
+            ]
+        }
+    ],
+    "version": 4
+}
