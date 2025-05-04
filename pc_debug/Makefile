@@ -31,21 +31,13 @@ echo_vars:
 	@echo "SOURCES: $(SRC_PATHS)"
 	@echo "OBJ_PATHS: $(OBJ_PATHS)"
 
-$(TARGET): $(OBJECTS)
+$(TARGET): $(OBJ_PATHS)
 	@echo "GET_EXE: $@"
 	@mkdir -p $(BINDIR)
-	$(CC) $(OBJECTS) -o $@
+	$(CC) $^ -o $@ 
 
-$(OBJDIR)/main.o: main.c
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@echo "GET_OBJs: $@"
-	@mkdir -p $(OBJDIR)
-	$(CC) $(CFLAGS) -c $< -o $@
-
-$(OBJDIR)/i2c.o: Src/i2c.c
-	@mkdir -p $(OBJDIR)
-	$(CC) $(CFLAGS) -c $< -o $@
-
-$(OBJDIR)/rgbw_driver.o: $(SRCDIR)/rgbw_driver.c
 	@mkdir -p $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
