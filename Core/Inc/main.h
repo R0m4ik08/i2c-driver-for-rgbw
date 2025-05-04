@@ -27,7 +27,11 @@ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
+#ifndef PC_DEBUG
+
 #include "stm32f3xx_hal.h"
+
+#endif // PC_DEBUG
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */

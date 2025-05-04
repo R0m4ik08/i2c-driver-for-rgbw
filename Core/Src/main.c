@@ -40,19 +40,27 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-I2C_HandleTypeDef hi2c1;
+#ifndef PC_DEBUG
 
 UART_HandleTypeDef huart2;
+
+#endif // PC_DEBUG
 
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
+
+#ifndef PC_DEBUG
+
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_USART2_UART_Init(void);
+
+#endif // PC_DEBUG
+
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -72,6 +80,8 @@ int main(void)
     /* USER CODE BEGIN 1 */
 
     /* USER CODE END 1 */
+
+    #ifndef PC_DEBUG
 
     /* MCU Configuration--------------------------------------------------------*/
 
@@ -93,6 +103,8 @@ int main(void)
     MX_GPIO_Init();
     MX_I2C1_Init();
     MX_USART2_UART_Init();
+
+    #endif // PC_DEBUG
     /* USER CODE BEGIN 2 */
 
     i2chw_dev_t i2chw_dev = {
@@ -192,6 +204,9 @@ int main(void)
     }
     /* USER CODE END 3 */
 }
+
+
+#ifndef PC_DEBUG
 
 /**
   * @brief System Clock Configuration
@@ -358,6 +373,8 @@ void Error_Handler(void)
   }
   /* USER CODE END Error_Handler_Debug */
 }
+
+#endif // PC_DEBUG
 
 #ifdef  USE_FULL_ASSERT
 /**

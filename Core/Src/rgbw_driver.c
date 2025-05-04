@@ -143,7 +143,9 @@ i2chw_error_t rgbw_driver_init(const i2chw_dev_t* i2chw_dev, const i2chw_cfg_t* 
     }
 
     //  Ожидает окончание процесса сброса состояния (200 мкс по описанию микросхемы) !!! По факту ожидает 1мс
-    HAL_Delay(RGBW_DRIVER_I2C_TIME_FOR_RESET_MS); 
+#ifndef PC_DEBUG
+    HAL_Delay(RGBW_DRIVER_I2C_TIME_FOR_RESET_MS);
+#endif // PC_DEBUG
 
     //  Отправляет данные в регистр сброса/конфигурации для установки режима: всегда включен (0b11000)
     result = write_data_to_register_by_address(i2chw_dev, RGBW_CHIP_REG_RESET_CONTROL, (uint8_t) MODE_ALWAYS_ON);
